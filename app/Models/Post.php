@@ -15,7 +15,7 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    public function getByLimit(int $limit_count = 10)
+    public function getByLimit(int $limit_count = 5)
     {
         return $this->orderBy('updated_at', 'DESC')->limit($limit_count)->get();
     }
@@ -28,6 +28,8 @@ class Post extends Model
     protected $fillable = [
         'title',
         'body',
-        'category_id'
+        'category_id',
+        'image',
+        'public_id'
         ];
 }

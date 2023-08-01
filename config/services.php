@@ -34,5 +34,13 @@ return [
     'teratail' => [
         'token' => env('TERATAIL_ACCESS_TOKEN')
     ],
+    
+    'google-map' => [
+        'apikey' => env('GOOGLE_MAP_API'),
+    ],
+    
+    'youtube' => [
+        'apikey' => env('YOUTUBE_API_KEY'),
+    ],
 
 ];

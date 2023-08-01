@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        Blog Show
+        <div class="text-center">
+            <div class="font-semibold text-3xl text-yellow-400">Blog Confirmation</div>
+        </div>
     </x-slot>
     <body>
         <h1 class="title">

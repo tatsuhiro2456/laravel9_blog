@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Http\Requests\PostRequest;
+use Cloudinary;
 
 class PostController extends Controller
 {
@@ -30,7 +31,7 @@ class PostController extends Controller
         
         // index bladeに取得したデータを渡す
         return view('posts.index')->with([
-            'posts' => $post->getPaginateByLimit(),
+            'posts' => $post->getPaginateByLimit(5),
             'questions' => $questions['questions'],
         ]);
     }
@@ -45,6 +46,10 @@ class PostController extends Controller
     public function store(Post $post, PostRequest $request,)
     {
         $input = $request['post'];
+        $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+        $public_id = Cloudinary::getPublicId();
+        
+        $input += ["public_id"=>$public_id, 'image' => $image_url];
         $post->fill($input)->save();
         return redirect('/posts/'.$post->id);
     }
@@ -64,7 +69,22 @@ class PostController extends Controller
     
     public function delete(Post $post)
     {
+        if(isset($post->public_id)){
+            Cloudinary::destroy($post->public_id);
+            
+        }
         $post->delete();
         return redirect('/');
     }
+    
+    public function map()
+    {
+        return view('posts.map');
+    }
+    
+    public function pokemon()
+    {
+        return view('posts.pokemon');
+    }
+    
 }

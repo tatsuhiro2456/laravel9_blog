@@ -1,36 +1,49 @@
 <x-app-layout>
     <x-slot name="header">
-        Blog
+        <div class="text-center">
+            <div class="font-semibold text-3xl text-yellow-400">Blog list</div>
+        </div>
     </x-slot>
     <body>
-        <h1 class="text-3xl text-green-700">Blog Name</h1>
-        <button class="bg-red-600 font-medium text-white py-2 px-4 rounded">
-            <a href='/posts/create'>create</a>
-        </button>
+        </br>
+        <div class="text-center">
+            <button class="bg-yellow-400 font-medium text-violet-500 py-2 px-4 rounded hover:text-violet-700 hover:bg-yellow-200 ">
+                <a href='/posts/create'>create</a>
+            </button>
+        </div>
+        <br>
+        <div class="border-t border-violet-800"/>
         <div class='posts'>
             @foreach($posts as $post)
-                <div class='post'>
-                    <h2 class="text-2xl text-green-700">
-                        <a href="/posts/{{$post->id}}">{{ $post->title }}</a>
-                    </h2>
-                    <p class='body'>{{ $post->body }}</p>
-                    <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
-                    <form action="/posts/{{$post->id}}" id="form_{{$post->id}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" onclick="deletePost({{$post->id}})">delete</button>
-                    </form>
-                </div>
+            <br>
+                        <div class="flex justify-center">
+                            <div class="w-56">
+                                <h2 class="text-2xl text-yellow-400 hover:text-yellow-600">
+                                    <a href="/posts/{{$post->id}}">{{ $post->title }}</a>
+                                </h2>
+                                <p class='body'>{{ $post->body }}</p>
+                                <div class="box-border border text-white w-16 text-center hover:text-violet-500 hover:bg-white">
+                                    <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
+                                </div></br>
+                                <div>
+                                    <form action="/posts/{{$post->id}}" id="form_{{$post->id}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="bg-black font-medium text-yellow-400 py-2 px-4 hover:text-yellow-300 hover:bg-red-500" onclick="deletePost({{$post->id}})">delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="w-48">
+                                <img src="{{ $post->image }}" alt="画像が読み込めません。"/>
+                            </div>
+                        </div>
+                    </div><br>
+                <div class="border-t border-violet-800"/>
             @endforeach
-        </div>
+        </div></br>
         
-        <div>
-            <h2>ログインユーザー: {{Auth::user()->name}}</h2>
-        </div>
+        <div class="my-5">{{$posts->links('vendor.tailwind')}}</div>
         
-        <div class ='paginate'>
-            {{ $posts->links() }}
-        </div>
         
         <script>
             function deletePost(id) {
@@ -42,13 +55,20 @@
             }
         </script>
         
-        <div>
+        
+        <br>
+        <br>
+        
+        <div class="text-center bg-violet-500">
+            <a href="https://teratail.com/" class="text-3xl text-yellow-400  hover:text-yellow-600">teratail</h1></br>
+        </div>
+        <div class="text-center flex flex-col space-y-4">
             @foreach($questions as $question)
-                <div>
-                    <a href="https://teratail.com/questions/{{ $question['id'] }}">
-                        {{ $question['title'] }}
-                    </a>
-                </div>
+                    <p>
+                        <a href="https://teratail.com/questions/{{ $question['id'] }}" class="text-yellow-400 hover:text-yellow-600">
+                            {{ $question['title'] }}
+                        </a>
+                    </p>
             @endforeach
         </div>
     </body>

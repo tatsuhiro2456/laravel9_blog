@@ -1,10 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        Blog Create
+        <div class="text-center">
+            <div class="font-semibold text-3xl text-yellow-400">Blog Create</div>
+        </div>
     </x-slot>
     <body>
         <h1>Blog Name</h1>
-        <form action='/posts' method="POST">
+        <form action='/posts' method="POST" enctype="multipart/form-data">
             @csrf
             <div class="title">
                 <h2>Title</h2>
@@ -15,6 +17,9 @@
                 <h2>Body</h2>
                 <textarea name="post[body]" placeholder="今日も一日お疲れさまでした" value="{{ old('post.body') }}" ></textarea>
                 <p class="title__error" style="color:red">{{ $errors->first('post.body') }}</p>
+            </div>
+            <div class="image">
+                <input type="file" name="image">
             </div>
             <div class="category">
                 <h2>Category</h2>
