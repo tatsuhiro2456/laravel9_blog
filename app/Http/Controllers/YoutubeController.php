@@ -15,7 +15,7 @@ class YoutubeController extends Controller
     }
     
     public function search(){
-        //検索されたら
+        //検索されたら、クエリパラメータ(URL末尾)を取得
         if (isset($_GET['q']) && isset($_GET['maxResults'])) {
             
             //$DEVELOPER_KEY =  env("YOUTUBE_API_KEY");
@@ -57,29 +57,30 @@ class YoutubeController extends Controller
     }
     
     public function search_videos(){
-        //検索されたら
+        //検索されたら、クエリパラメータ(URL末尾)が入っていたら下記を実行
         if (isset($_GET['q']) && isset($_GET['maxResults'])) {
             
-            //$DEVELOPER_KEY =  env("YOUTUBE_API_KEY");
+            //APIキーを取得し、クライアントオブジェクト（クライアント側で実行されるメソッドなどが定義されている）を作成
             $DEVELOPER_KEY =  config("services.youtube.apikey");
             $client = new Google_Client();
             $client->setDeveloperKey($DEVELOPER_KEY);
-            
             $youtube = new Google_Service_YouTube($client);
             
+            //エラーが起きたら例外処理を実行
             try {
+                    //idにはビデオのID、snippetには動画の動画の基本的な情報（タイトル、説明、カテゴリなど）が格納される
                     $searchResponse = $youtube->search->listSearch('id,snippet', array(
                       'q' => $_GET['q'],
                       'maxResults' => $_GET['maxResults'],
                     ));
+                    
+                    
                     $videos = [];
 
+                    //$searchResponseのitemsに格納されたデータのビデオタイトルとビデオIdを$videosに格納する
                     foreach ($searchResponse['items'] as $searchResult) {
-                        switch ($searchResult['id']['kind']) {
-                            case 'youtube#video':
-                                array_push($videos, [$searchResult['snippet']['title'], $searchResult['id']['videoId']]);
-                                break;
-                        }
+                        array_push($videos, [$searchResult['snippet']['title'], $searchResult['id']['videoId']]);
+
                     }
                 } catch (Google_Service_Exception $e) {
                         echo $e->getMessage();

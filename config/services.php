@@ -42,5 +42,8 @@ return [
     'youtube' => [
         'apikey' => env('YOUTUBE_API_KEY'),
     ],
+    'reccruit' => [
+        'apikey' => env('RECRUIT_API_KEY'),
+    ],
 
 ];

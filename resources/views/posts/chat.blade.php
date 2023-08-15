@@ -2,7 +2,7 @@
     <x-slot name="header">
         ChatGPT
     </x-slot>
-    <body>
+    <x-slot name="slot">
         {{-- フォーム --}}
         <form method="POST">
             @csrf
@@ -12,5 +12,5 @@
     
         {{-- 結果 --}}
         {{ isset($chat_response) ? $chat_response : '' }}
-    </body>
+    </x-slot>
 </x-app-layout>

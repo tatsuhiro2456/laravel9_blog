@@ -29,19 +29,27 @@ class PostController extends Controller
         // PHPファイルに対応した連想配列にデコードする
         $questions = json_decode($response->getBody(), true);
         
+        
         // index bladeに取得したデータを渡す
         return view('posts.index')->with([
             'posts' => $post->getPaginateByLimit(5),
             'questions' => $questions['questions'],
         ]);
     }
+    
+    
     public function show(Post $post){
         return view('posts.show')->with(['post' => $post]);
     }
+    
+    
+    
     public function create(Category $category)
     {
         return view('posts.create')->with(['categories' => $category->get()]);
     }
+    
+    
     
     public function store(Post $post, PostRequest $request,)
     {
@@ -50,7 +58,9 @@ class PostController extends Controller
         $public_id = Cloudinary::getPublicId();
         
         $input += ["public_id"=>$public_id, 'image' => $image_url];
+        
         $post->fill($input)->save();
+        
         return redirect('/posts/'.$post->id);
     }
     

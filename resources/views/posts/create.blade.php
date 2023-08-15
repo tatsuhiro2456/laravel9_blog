@@ -4,7 +4,7 @@
             <div class="font-semibold text-3xl text-yellow-400">Blog Create</div>
         </div>
     </x-slot>
-    <body>
+    <x-slot name="slot">
         <h1>Blog Name</h1>
         <form action='/posts' method="POST" enctype="multipart/form-data">
             @csrf
@@ -34,5 +34,5 @@
         <div class="footer">
             <a href="/">戻る</a>
         </div>
-    </body>
+    </x-slot>
 </x-app-layout>

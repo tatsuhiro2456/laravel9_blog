@@ -4,7 +4,7 @@
             <div class="font-semibold text-3xl text-yellow-400">GoogleMap</div>
         </div>
     </x-slot>
-    <body>
+    <x-slot name="slot">
         <link rel="stylesheet" type="text/css" href="{{ asset('/build/assets/map-f2ed8a0a.css') }}"> 
         <input
           id="pac-input"
@@ -18,5 +18,5 @@
           src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key={{ config("services.google-map.apikey") }}&callback=initAutocomplete&libraries=places&v=weekly" 
           defer
         ></script>
-    </body>
+    </x-slot>
 </x-app-layout>

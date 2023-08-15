@@ -4,7 +4,7 @@
             <div class="font-semibold text-3xl text-yellow-400">Blog list</div>
         </div>
     </x-slot>
-    <body>
+    <x-slot name="slot">
         </br>
         <div class="text-center">
             <button class="bg-yellow-400 font-medium text-violet-500 py-2 px-4 rounded hover:text-violet-700 hover:bg-yellow-200 ">
@@ -14,6 +14,7 @@
         <br>
         <div class="border-t border-violet-800"/>
         <div class='posts'>
+            
             @foreach($posts as $post)
             <br>
                         <div class="flex justify-center">
@@ -71,5 +72,5 @@
                     </p>
             @endforeach
         </div>
-    </body>
+    </x-slot>
 </x-app-layout>
